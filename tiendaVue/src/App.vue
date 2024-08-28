@@ -1,16 +1,19 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
 import {db} from "./data/guitarra"
+import Guitarra from './components/Guitarra.vue';
 
-const state = reactive( {
-    guitarras: db
-})
-console.log(state.guitarras)
-console.log(guitarras.value)
+const guitarras = ref()
 
 onMounted( ()=> {
     guitarras.value = db;
 })    
+
+function agregarCarrito(precio) {
+    alert("Haz agregado papu y esto cuesta "+ precio)
+}
+
+// Del padre al hijo se hace con props (agregar-carrito)
 </script>
 
 
@@ -104,20 +107,14 @@ onMounted( ()=> {
   <h2 class="text-center">Nuestra Colección</h2>
 
   <div class="row mt-5">
-      <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-          <div class="col-4">
-              <img class="img-fluid" src="/img/guitarra_01.jpg" alt="imagen guitarra">
-          </div>
-          <div class="col-8">
-              <h3 class="text-black fs-4 fw-bold text-uppercase">Lukather</h3>
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-              <p class="fw-black text-primary fs-3">$299</p>
-              <button 
-                  type="button"
-                  class="btn btn-dark w-100 "
-              >Agregar al Carrito</button>
-          </div>
-      </div><!-- FIN GUITARRA -->
+      <Guitarra 
+        v-for="(guitarra, index) in guitarras" 
+        :key="index" 
+        v-bind:guitarra="guitarra"
+
+        @agregar-carrito="agregarCarrito"
+        > 
+      </Guitarra>
   </div>
 </main>
 
@@ -132,3 +129,4 @@ onMounted( ()=> {
 <style scoped>
 
 </style>
+
