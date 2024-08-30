@@ -24,7 +24,7 @@
             <button 
                 type="button"
                 class="btn btn-dark w-100 "
-                @click="$emit('agregar-carrito', 123)"
+                @click="$emit('agregar-carrito', guitarra)"
             >Agregar al Carrito</button>
         </div>
     </div><!-- FIN GUITARRA -->
