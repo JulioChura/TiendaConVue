@@ -11,6 +11,10 @@ const guitarra = ref({})
 onMounted( ()=> {
     guitarras.value = db;
     guitarra.value = db[3]
+    const carritoStorage = localStorage.getItem('carrito')
+    if (carritoStorage) {
+      carrito.value = JSON.parse(carritoStorage)
+    }
 })    
 
 const agregarCarrito = (guitarra) => {
@@ -21,8 +25,9 @@ const agregarCarrito = (guitarra) => {
     } else {
       guitarra.cantidad = 1;
       carrito.value.push(guitarra)
-      console.log(carrito.value)
+      console.log(carrito.value)  
     }
+    guardarLocalStorage()
 }
 
 // Del padre al hijo se hace con props (agregar-carrito)
@@ -44,8 +49,12 @@ const eliminarProducto = (id) => {
 }
 
 const vaciarCarrito = ()=> carrito.value = []
-</script>
 
+const guardarLocalStorage = ()=>  {
+  localStorage.setItem('carrito', JSON.stringify(carrito.value))
+}
+
+</script>
 
 <template>
 <Header
